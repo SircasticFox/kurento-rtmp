@@ -356,12 +356,13 @@ function bindFFmpeg(streamip, streamport, sdpData, ws) {
         '-acodec', 'copy',
 	'-g', '24',
         '-f', 'flv',
-        'rtmp://10.0.71.160:1935/hls/desktop'
+        'rtmp://localhost:1234/live/' + streamip + '_' + streamport
     ].concat();
     var child = spawn('ffmpeg', ffmpeg_args);
     ws.send(JSON.stringify({
         id: 'rtmp',
-        message: '/hls/desktop'
+        // shouldn't matter here, we don't care about it in the browser at the moment
+        message: '/hls/desktop' 
     }));
     //ignore stdout
     //this.child.stdout.on('data', this.emit.bind(this, 'data'));
