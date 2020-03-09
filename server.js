@@ -47,7 +47,7 @@ const rtmp_server_config = {
     rtmp: {
         port: 1234,
         chunk_size: 60000,
-        gop_cache: true,
+        gop_cache: false, // reduces latency
         ping: 60,
         ping_timeout: 30
     },
