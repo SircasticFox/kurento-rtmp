@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-const NodeMediaServer = require('node-media-server').NodeMediaServer;
+const NodeMediaServer = require('node-media-server');
 var path = require('path');
 var url = require('url');
 var cookieParser = require('cookie-parser')
