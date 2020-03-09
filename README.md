@@ -1,10 +1,8 @@
 # kurento-rtmp #
 
-Here is a simple demo which can provide a pipeline from kurento-webrtc to rtmp server (eg., srs, nginx-rtmp-module, etc.).
+## Attribution ##
 
-You can browse https://1029.mythkast.net to test this demo.
-
-![image](https://github.com/godka/kurento-rtmp/raw/master/img/rtp.png)
+Simple demo to provide a pipeline from kurento-webrtc to rtmp server (eg., srs, nginx-rtmp-module, etc.) to enable screen sharing over an HLS Stream. Based on a repository from godka which can be found here: https://github.com/godka/kurento-rtmp/
 
 The pipeline of the work is described as follows:
 
