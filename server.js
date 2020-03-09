@@ -45,7 +45,7 @@ var options =
 
 const rtmp_server_config = {
     rtmp: {
-        port: 1935,
+        port: 1234,
         chunk_size: 60000,
         gop_cache: true,
         ping: 60,
@@ -98,8 +98,9 @@ var wss = new ws.Server({
 /*
  * Management of WebSocket messages
  */
-wss.on('connection', function (ws) {
+wss.on('connection', function (ws, req) {
     var sessionId = null;
+    ws.upgradeReq = req;
     var request = ws.upgradeReq;
     var response = {
         writeHead: {}
@@ -233,7 +234,7 @@ function start(sessionId, ws, sdpOffer, callback) {
                         var streamPort = 55000 + (session_index * 2);
                         var audioPort = 49170 + (session_index * 2);
                         session_index++;    //change to next port
-                        var streamIp = '127.0.0.1';//Test ip
+                        var streamIp = '10.0.71.160'; //Test ip
                         generateSdpStreamConfig(streamIp, streamPort, audioPort, function (err, sdpRtpOfferString) {
                             if (err) {
                                 return callback(error);
@@ -353,13 +354,14 @@ function bindFFmpeg(streamip, streamport, sdpData, ws) {
         '-i', path.join(__dirname, streamip + '_' + streamport + '.sdp'),
         '-vcodec', 'copy',
         '-acodec', 'copy',
+	'-g', '24',
         '-f', 'flv',
-        'rtmp://localhost/live/' + streamip + '_' + streamport
+        'rtmp://10.0.71.160:1935/hls/desktop'
     ].concat();
     var child = spawn('ffmpeg', ffmpeg_args);
     ws.send(JSON.stringify({
         id: 'rtmp',
-        message: '/live/' + streamip + '_' + streamport
+        message: '/hls/desktop'
     }));
     //ignore stdout
     //this.child.stdout.on('data', this.emit.bind(this, 'data'));
