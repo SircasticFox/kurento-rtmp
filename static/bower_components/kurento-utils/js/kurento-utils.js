@@ -403,16 +403,42 @@ function WebRtcPeer(mode, options, callback) {
                 start();
             }).catch(callback);
         }
+        function getScreenStream(callback) {
+            if (navigator.getDisplayMedia) {
+                navigator.getDisplayMedia({
+                    video: true
+                }).then(screenStream => {
+                    callback(screenStream);
+                });
+            } else if (navigator.mediaDevices.getDisplayMedia) {
+                navigator.mediaDevices.getDisplayMedia({
+                    video: true
+                }).then(screenStream => {
+                    callback(screenStream);
+                });
+            } else {
+                getScreenId(function(error, sourceId, screen_constraints) {
+                    navigator.mediaDevices.getUserMedia(screen_constraints).then(function(screenStream) {
+                        callback(screenStream);
+                    });
+                });
+            }
+        }
+        
         if (sendSource === 'webcam') {
             getMedia(mediaConstraints);
         } else {
-            getScreenConstraints(sendSource, function (error, constraints_) {
+            getScreenStream(function(stream) {
+                videoStream = stream;
+            });
+            /*getScreenConstraints(sendSource, function (error, constraints_) {
                 if (error)
                     return callback(error);
                 constraints = [mediaConstraints];
                 constraints.unshift(constraints_);
                 getMedia(recursive.apply(undefined, constraints));
-            }, guid);
+            }, guid);*/
+
         }
     } else {
         setTimeout(start, 0);
