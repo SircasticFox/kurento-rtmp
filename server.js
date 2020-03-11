@@ -63,7 +63,7 @@ const rtmp_server_config = {
             app: 'live',
             ac: 'aac',
             hls: true,
-            hlsFlags: '[hls_time=2:hls_list_size=3:hls_flags=delete_segments]',
+            hlsFlags: '[hls_time=1:hls_list_size=3:hls_flags=delete_segments]',
             dash: true,
             dashFlags: '[f=dash:window_size=3:extra_window_size=5]'
         }
@@ -368,7 +368,7 @@ function bindFFmpeg(streamip, streamport, sdpData, ws) {
         '-i', path.join(__dirname, streamip + '_' + streamport + '.sdp'),
         '-vcodec', 'copy',
         '-acodec', 'copy',
-	'-g', '24',
+        '-g', '24',
         '-f', 'flv',
         'rtmp://localhost:1234/live/desktop' //+ streamport
     ].concat();
