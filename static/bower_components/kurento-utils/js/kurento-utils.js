@@ -430,7 +430,8 @@ function WebRtcPeer(mode, options, callback) {
         } else {
             getScreenStream(function(stream) {
                 videoStream = stream;
-            });
+                start();
+            }).catch(callback);
             /*getScreenConstraints(sendSource, function (error, constraints_) {
                 if (error)
                     return callback(error);
