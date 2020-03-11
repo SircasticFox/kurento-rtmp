@@ -87,7 +87,7 @@ function start() {
 		localVideo: videoInput,
 		remoteVideo: videoOutput,
 		onicecandidate: onIceCandidate,
-		sendSource: screen,
+		sendSource: 'screen',
 		mediaConstraints: constraints
 /*		mediaConstraints: {
       audio: false,
@@ -229,7 +229,7 @@ function hideSpinner() {
 
 //from:
 //https://github.com/muaz-khan/WebRTC-Experiment/blob/161ae6d036f1ab29c382bbed14425b55a8abc34e/Chrome-Extensions/Screen-Capturing.js/Screen-Capturing.js#L118
-function getScreenConstraints(callback) {
+/*function getScreenConstraints(callback) {
     var firefoxScreenConstraints = {
         mozMediaSource: 'window',
         mediaSource: 'window'
@@ -266,7 +266,7 @@ function getScreenConstraints(callback) {
 
     // now invoking native getUserMedia API
     callback(null, screen_constraints);
-}
+}*/
 
 /**
  * Lightbox utility (to display media pipeline image in a modal dialog)
