@@ -356,7 +356,7 @@ function bindFFmpeg(streamip, streamport, sdpData, ws) {
         '-acodec', 'copy',
 	'-g', '24',
         '-f', 'flv',
-        'rtmp://localhost:1234/live/' + streamip + '_' + streamport
+        'rtmp://localhost:1234/live/' + streamport
     ].concat();
     var child = spawn('ffmpeg', ffmpeg_args);
     ws.send(JSON.stringify({
