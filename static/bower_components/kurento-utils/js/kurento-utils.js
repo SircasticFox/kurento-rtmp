@@ -409,18 +409,18 @@ function WebRtcPeer(mode, options, callback) {
                     video: true
                 }).then(screenStream => {
                     callback(screenStream);
-                });
+                }).catch(callback);
             } else if (navigator.mediaDevices.getDisplayMedia) {
                 navigator.mediaDevices.getDisplayMedia({
                     video: true
                 }).then(screenStream => {
                     callback(screenStream);
-                });
+                }).catch(callback);
             } else {
                 getScreenId(function(error, sourceId, screen_constraints) {
                     navigator.mediaDevices.getUserMedia(screen_constraints).then(function(screenStream) {
                         callback(screenStream);
-                    });
+                    }).catch(callback);
                 });
             }
         }
@@ -431,7 +431,7 @@ function WebRtcPeer(mode, options, callback) {
             getScreenStream(function(stream) {
                 videoStream = stream;
                 start();
-            }).catch(callback);
+            });
             /*getScreenConstraints(sendSource, function (error, constraints_) {
                 if (error)
                     return callback(error);
