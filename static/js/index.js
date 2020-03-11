@@ -78,11 +78,17 @@ function start() {
 
 	console.log('Creating WebRtcPeer and generating local sdp offer ...');
 
+	var constraints = {
+   		audio: false,
+   		video: true
+ 	}
+
 	var options = {
 		localVideo: videoInput,
 		remoteVideo: videoOutput,
 		onicecandidate: onIceCandidate,
-		sendSource: screen
+		sendSource: screen,
+		mediaConstraints: constraints
 /*		mediaConstraints: {
       audio: false,
       video: {
@@ -219,6 +225,47 @@ function hideSpinner() {
 		arguments[i].poster = './img/webrtc.png';
 		arguments[i].style.background = '';
 	}
+}
+
+//from:
+//https://github.com/muaz-khan/WebRTC-Experiment/blob/161ae6d036f1ab29c382bbed14425b55a8abc34e/Chrome-Extensions/Screen-Capturing.js/Screen-Capturing.js#L118
+function getScreenConstraints(callback) {
+    var firefoxScreenConstraints = {
+        mozMediaSource: 'window',
+        mediaSource: 'window'
+    };
+    
+    if(isFirefox) return callback(null, firefoxScreenConstraints);
+
+    // this statement defines getUserMedia constraints
+    // that will be used to capture content of screen
+    var screen_constraints = {
+        mandatory: {
+            chromeMediaSource: chromeMediaSource,
+            maxWidth: screen.width > 1920 ? screen.width : 1920,
+            maxHeight: screen.height > 1080 ? screen.height : 1080
+        },
+        optional: []
+    };
+
+            screen_constraints.mandat
+    // this statement verifies chrome extension availability
+    // if installed and available then it will invoke extension API
+    // otherwise it will fallback to command-line based screen capturing API
+    if (chromeMediaSource == 'desktop' && !sourceId) {
+        getSourceId(function() {ory.chromeMediaSourceId = sourceId;
+            callback(sourceId == 'PermissionDeniedError' ? sourceId : null, screen_constraints);
+        });
+        return;
+    }
+
+    // this statement sets gets 'sourceId" and sets "chromeMediaSourceId" 
+    if (chromeMediaSource == 'desktop') {
+        screen_constraints.mandatory.chromeMediaSourceId = sourceId;
+    }
+
+    // now invoking native getUserMedia API
+    callback(null, screen_constraints);
 }
 
 /**
