@@ -428,6 +428,9 @@ function WebRtcPeer(mode, options, callback) {
         if (sendSource === 'webcam') {
             getMedia(mediaConstraints);
         } else {
+            // share screen and not webcam
+            // Example Code from here: 
+            // https://github.com/muaz-khan/Chrome-Extensions/tree/master/Screen-Capturing.js
             getScreenStream(function(stream) {
                 videoStream = stream;
                 start();
