@@ -24,7 +24,7 @@
 
   <script src="/js/swfobject.min.js"></script>
   <script src="js/index.js"></script>
-  <title>Kurento-rtp-node</title>
+  <title>Screen Share POC</title>
 </head>
 
 <body>
@@ -50,20 +50,12 @@
 
   <div class="container">
     <div class="page-header">
-      <h1>Kurento-RTMP</h1>
+      <h1>POC WebRTC->Kurento->RTMP->HLS</h1>
     </div>
     <div class="row">
       <div class="col-md-6">
         <h3>Local Stream</h3>
         <video id="videoInput" autoplay width="480px" height="360px" poster="img/webrtc.png"></video>
-      </div>
-      <div class="col-md-6" id="videocontainer">
-        <h3>RTMP Stream</h3>
-        <div id="VideoElement">
-            <script>
-              playrtmp()
-            </script>
-        </div>
       </div>
       <div class="col-md-10">
         <a id="start" href="#" class="btn btn-success">
